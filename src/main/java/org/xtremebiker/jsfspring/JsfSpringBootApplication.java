@@ -21,7 +21,8 @@ public class JsfSpringBootApplication implements ServletContextAware {
 	}
 
 	@Bean
-	public static CustomScopeConfigurer viewScope() {
+	public static CustomScopeConfigurer viewScope()
+	{
 		CustomScopeConfigurer configurer = new CustomScopeConfigurer();
 		configurer.setScopes(new ImmutableMap.Builder<String, Object>().put("view", new ViewScope()).build());
 		return configurer;
@@ -29,16 +30,15 @@ public class JsfSpringBootApplication implements ServletContextAware {
 
 	@Bean
 	public ServletRegistrationBean<FacesServlet> servletRegistrationBean() {
-		ServletRegistrationBean<FacesServlet> servletRegistrationBean = new ServletRegistrationBean<>(
-				new FacesServlet(), "*.xhtml");
+		ServletRegistrationBean<FacesServlet> servletRegistrationBean =
+				new ServletRegistrationBean<>(new FacesServlet(), "*.xhtml");
 		servletRegistrationBean.setLoadOnStartup(1);
 		return servletRegistrationBean;
 	}
 
 	@Override
-	public void setServletContext(ServletContext servletContext) {
-		// Iniciar el contexto de JSF
-		// http://stackoverflow.com/a/25509937/1199132
+	public void setServletContext(ServletContext servletContext)
+	{
 		servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 		servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
 	}

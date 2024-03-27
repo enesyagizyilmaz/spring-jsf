@@ -10,8 +10,11 @@
 	<h:form>
 		<h:outputText id="greeting" value="Hello from #{myBean.from} it's #{myBean.date}" />
 		<h:commandButton value="Update Date"><f:ajax render="greeting"></f:ajax></h:commandButton>
+		<div>Hello from #{myBean.name}</div>
 	</h:form>
 	<p:spinner />
+	<br></br>
+
 </h:body>
 
 </html>
