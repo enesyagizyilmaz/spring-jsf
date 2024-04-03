@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h3>Create car</h3>
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col">
+                <p:outputLabel for="brand" value="Brand" />
+                <p:inputText value="#{carViewController.car.brand}" id="brand" />
+            </div>
+            <div class="p-field p-col">
+                <p:outputLabel for="color" value="Color" />
+                <p:inputText value="#{carViewController.car.color}" id="color" />
+            </div>
+            <div class="p-field p-col">
+                <p:outputLabel for="year" value="Year" />
+                <p:inputText value="#{carViewController.car.year}" id="year" />
+            </div>
+            <br/>
+
+                <p:commandButton value="Submit" id="ajax" action="#{carViewController.saveCar}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+
+        </div>
+    </h:form>
+</h:body>
+
+
+</html>
