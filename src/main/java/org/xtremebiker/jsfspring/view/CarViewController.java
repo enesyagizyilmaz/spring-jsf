@@ -1,60 +1,102 @@
 package org.xtremebiker.jsfspring.view;
 
-
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xtremebiker.jsfspring.model.Car;
 import org.xtremebiker.jsfspring.repository.CarRepository;
+import org.xtremebiker.jsfspring.service.CarService;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @Named
 @ViewScoped
 @Data
-@RequestScoped
-public class CarViewController
+public class CarViewController implements Serializable
 {
-    private CarRepository carRepository;
+    private CarService carService;
     private List<Car> cars;
     private Car car;
+    private Car carToUpdate;
+    private Long updateCarId;
 
     @Autowired
-    public void setCarRepository(CarRepository carRepository) {
-        this.carRepository = carRepository;
+    public void setCarService(CarService carService)
+    {
+        this.carService = carService;
     }
 
     @PostConstruct
     public void init()
     {
-        car = new Car();
-        cars = carRepository.findAll();
+        cars = carService.getAllCars();
+        resetCar();
     }
 
     public String gotoCreateCar()
     {
+        resetCar();
         return "create-car.xhtml?faces-redirect=true";
+    }
+
+    public String gotoUpdateCar(long id)
+    {
+        updateCarId = id;
+        Optional<Car> optionalCar = carService.getCarById(updateCarId);
+        if (optionalCar.isPresent())
+        {
+            carToUpdate = optionalCar.get();
+            return "update-car.xhtml?faces-redirect=true";
+        }
+        else
+        {
+            return "index.xhtml?faces-redirect=true";
+        }
     }
 
     public String saveCar()
     {
-        System.out.println("baban");
-        carRepository.save(car);
-        cars = carRepository.findAll();
-        car = new Car();
+        carService.saveCar(car);
+        cars = carService.getAllCars();
+        resetCar();
         return "index.xhtml?faces-redirect=true";
     }
 
-    @Transactional
-    public void deleteCar(Long carId)
+    public String updateCar()
     {
-        System.out.println("anan");
-        carRepository.deleteById(carId);
-        cars = carRepository.findAll(); // Güncel listeyi tekrar yükleyin
+        Optional<Car> carExist = carService.getCarById(updateCarId);
+        if (carExist.isPresent())
+        {
+            Car existingCar = carExist.get();
+            existingCar.setBrand(carToUpdate.getBrand());
+            existingCar.setColor(carToUpdate.getColor());
+            existingCar.setYear(carToUpdate.getYear());
+            carService.saveCar(existingCar);
+            cars = carService.getAllCars();
+            System.out.println("Updated Car: " + existingCar.toString());
+            return "index.xhtml?faces-redirect=true";
+        }
+        else
+        {
+            System.out.println("Car with ID " + updateCarId + " not found.");
+            return null;
+        }
     }
 
+    public void deleteCar(Long carId)
+    {
+        carService.deleteCarById(carId);
+        cars = carService.getAllCars();
+    }
+
+    private void resetCar()
+    {
+        car = new Car();
+        carToUpdate = new Car();
+    }
 }

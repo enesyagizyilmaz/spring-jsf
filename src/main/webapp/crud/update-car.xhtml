@@ -8,25 +8,25 @@
 
 <h:body>
     <h:form>
-        <h3>Create Car</h3>
+        <h3>Update Car</h3>
         <div class="ui-fluid p-formgrid p-grid">
             <div class="p-field p-col">
                 <p:outputLabel for="brand" value="Brand" />
-                <p:inputText value="#{carViewController.car.brand}" id="brand" />
+                <p:inputText value="#{carViewController.carToUpdate.brand}" id="brand" />
             </div>
             <div class="p-field p-col">
                 <p:outputLabel for="color" value="Color" />
-                <p:inputText value="#{carViewController.car.color}" id="color" />
+                <p:inputText value="#{carViewController.carToUpdate.color}" id="color" />
             </div>
             <div class="p-field p-col">
                 <p:outputLabel for="year" value="Year" />
-                <p:inputText value="#{carViewController.car.year}" id="year" />
+                <p:inputText value="#{carViewController.carToUpdate.year}" id="year" />
             </div>
             <br/>
 
-            <p:commandButton value="Submit"
+            <p:commandButton value="Update"
                              id="ajax"
-                             action="#{carViewController.saveCar}"
+                             action="#{carViewController.updateCar}"
                              style="margin-right:20px;"
                              styleClass="ui-priority-primary"
             />
