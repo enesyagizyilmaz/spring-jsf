@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Signup</title>
+</h:head>
+<h:body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <h:form id="signupForm">
+            <p:panel header="Signup">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <p:outputLabel for="username" value="Username:" style="margin-right: 10px;" />
+                        <p:inputText id="username" value="#{userViewController.user.username}" required="true" />
+                    </div><br/>
+
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <p:outputLabel for="email" value="Email:" style="margin-right: 10px;" />
+                        <p:inputText id="email" value="#{userViewController.user.email}" required="true" />
+                    </div><br/>
+
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <p:outputLabel for="password" value="Password:" style="margin-right: 10px;" />
+                        <p:password id="password" value="#{userViewController.user.password}" required="true" feedback="true" />
+                    </div><br/>
+
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <p:outputLabel for="passwordRepeat" value="Password Repeat:" style="margin-right: 10px;" />
+                        <p:password id="passwordRepeat" value="#{userViewController.passwordRepeat}" required="true" feedback="true" />
+                    </div><br/>
+
+                    <div style="margin-top: 10px;">
+                        <p:commandButton value="Signup" action="#{userViewController.signup}" update="messages" />
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </div>
+
+</h:body>
+</html>

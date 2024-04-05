@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class CarService
 {
-    private CarRepository carRepository;
+    CarRepository carRepository;
 
     @Autowired
     public void setCarRepository(CarRepository carRepository)
