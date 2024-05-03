@@ -26,11 +26,16 @@ public class UserViewController implements Serializable
     private User user;
     private String passwordRepeat;
 
+    private String usernameForLogin;
+    private String passwordForLogin;
+
     @PostConstruct
     public void init()
     {
         user = new User();
         passwordRepeat = "";
+        usernameForLogin = "";
+        passwordForLogin = "";
     }
 
     public void signup() throws IOException
@@ -49,10 +54,31 @@ public class UserViewController implements Serializable
         FacesContext.getCurrentInstance().addMessage(null, message);
 
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.redirect(externalContext.getRequestContextPath() + "/crud/index.xhtml");
+        externalContext.redirect(externalContext.getRequestContextPath() + "/crud/login.xhtml");
 
         user = new User();
         passwordRepeat = "";
+    }
+
+    public void login() throws IOException
+    {
+        if (userService.findUserByUsername(usernameForLogin) != null)
+        {
+            User userForLogin = userService.findUserByUsername(usernameForLogin);
+            String password = userForLogin.getPassword();
+            passwordForLogin = Base64.getEncoder().encodeToString(passwordForLogin.getBytes());
+            if (password.equals(passwordForLogin))
+            {
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                externalContext.redirect(externalContext.getRequestContextPath() + "/crud/index.xhtml");
+                return ;
+            }
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Username or password is wrong");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+        }
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Username or password is wrong");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

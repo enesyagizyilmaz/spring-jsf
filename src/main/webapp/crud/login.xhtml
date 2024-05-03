@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Login</title>
+</h:head>
+<h:body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <h:form id="signupForm">
+            <p:panel header="Login">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <p:outputLabel for="username" value="Username:" style="margin-right: 10px;" />
+                        <p:inputText id="username" value="#{userViewController.usernameForLogin}" required="true" />
+                    </div><br/>
+
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <p:outputLabel for="password" value="Password:" style="margin-right: 10px;" />
+                        <p:password id="password" value="#{userViewController.passwordForLogin}" required="true" feedback="true" />
+                    </div><br/>
+
+                    <div style="margin-top: 10px;">
+                        <p:commandButton value="Login" action="#{userViewController.login}" update="messages" />
+                    </div>
+                </div>
+
+            </p:panel>
+        </h:form>
+    </div>
+
+</h:body>
+</html>
