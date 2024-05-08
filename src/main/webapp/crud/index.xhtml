@@ -13,7 +13,8 @@
                          style="margin-right:20px;" styleClass="ui-priority-primary"
                          icon="pi pi-plus"
         />
-        <br/><br/></h:form>
+        <br/><br/>
+    </h:form>
 
     <p:dataTable id="carTable" var="car" value="#{carViewController.cars}">
         <p:column headerText="Id">
@@ -39,16 +40,32 @@
                              icon="pi pi-undo"
                              class="pi pi-trash"
                              style="margin-right:20px;"
-                             styleClass="ui-button-success" />
+                             styleClass="ui-button-success"
+            />
             <p:commandButton value="Delete"
-                             action="#{carViewController.deleteCar(car.id)}"
+                             onclick="PF('confirmDelete').show();"
                              update="carTable"
                              icon="pi pi-trash"
                              class="pi pi-trash"
                              style="margin-right:20px;"
-                             styleClass="ui-button-danger" />
+                             styleClass="ui-button-danger"
+                             type="button"
+            />
+
+            <p:confirmDialog header="Deletion Confirmation" widgetVar="confirmDelete"
+                             message="Are you sure you want to delete?" severity="alert"
+            >
+                <p:commandButton value="Yes" action="#{carViewController.deleteCar(car.id)}"
+                                 update="carTable" oncomplete="PF('confirmDelete').hide();"
+                                 icon="pi pi-check" styleClass="ui-button-success"
+                />
+                <p:commandButton value="No" onclick="PF('confirmDelete').hide();"
+                                 icon="pi pi-times" styleClass="ui-button-danger"
+                />
+            </p:confirmDialog>
         </p:column>
     </p:dataTable>
+
 </h:body>
 
 
