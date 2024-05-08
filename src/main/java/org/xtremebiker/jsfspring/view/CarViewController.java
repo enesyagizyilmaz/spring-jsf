@@ -44,6 +44,13 @@ public class CarViewController implements Serializable
         return "create-car.xhtml?faces-redirect=true";
     }
 
+    public String gotoMainPage()
+    {
+        System.out.println("anan");
+        resetCar();
+        return "index.xhtml?faces-redirect=true";
+    }
+
     public String gotoUpdateCar(long id)
     {
         updateCarId = id;
