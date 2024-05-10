@@ -48,22 +48,21 @@
                         </p:column>
 
                         <p:column headerText="Actions" style="text-align: center;">
-                            <p:commandButton value=""
+                            <p:commandButton
                                              action="#{carViewController.gotoUpdateCar(car.id)}"
                                              update="carTable"
-                                             icon="pi pi-undo"
+                                             icon="pi pi-pencil"
                                              class="pi pi-trash"
                                              styleClass="ui-button-success"
-                                             style="padding:10px 2px;margin-right: 5px"
+                                             style="margin-right: 5px"
                             />
-                            <p:commandButton value=""
+                            <p:commandButton
                                              onclick="PF('confirmDelete').show();"
                                              update="carTable"
                                              icon="pi pi-trash"
                                              class="pi pi-trash"
                                              styleClass="ui-button-danger"
                                              type="button"
-                                             style="padding:10px 2px;"
                             />
                             <p:confirmDialog header="Deletion Confirmation" widgetVar="confirmDelete"
                                              message="Are you sure you want to delete?" severity="alert"
@@ -84,7 +83,7 @@
                 <!-- Placeholder for any other table -->
                 <div style="margin: 0 auto; width: 100%;">
                     <div style="text-align: left; margin-bottom: 20px;">
-                        <p:commandButton value="Close"
+                        <p:commandButton
                                          rendered="#{carViewController.openRightMenu}"
                                          action="#{carViewController.gotoMainPage}"
                                          styleClass="ui-button-danger"
