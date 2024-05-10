@@ -1,7 +1,9 @@
 package org.xtremebiker.jsfspring.view;
 
 import lombok.Data;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.support.RequestContext;
 import org.xtremebiker.jsfspring.model.Car;
 import org.xtremebiker.jsfspring.repository.CarRepository;
 import org.xtremebiker.jsfspring.service.CarService;
@@ -24,6 +26,7 @@ public class CarViewController implements Serializable
     private Car car;
     private Car carToUpdate;
     private Long updateCarId;
+    private boolean openRightMenu;
 
     @Autowired
     public void setCarService(CarService carService)
@@ -31,9 +34,18 @@ public class CarViewController implements Serializable
         this.carService = carService;
     }
 
+    public boolean isOpenRightMenu() {
+        return openRightMenu;
+    }
+
+    public void setOpenRightMenu(boolean openRightMenu) {
+        this.openRightMenu = openRightMenu;
+    }
+
     @PostConstruct
     public void init()
     {
+        openRightMenu = false;
         cars = carService.getAllCars();
         resetCar();
     }
@@ -46,9 +58,11 @@ public class CarViewController implements Serializable
 
     public String gotoMainPage()
     {
+        setOpenRightMenu(false);
         resetCar();
         return "index.xhtml?faces-redirect=true";
     }
+
 
     public String gotoUpdateCar(long id)
     {
@@ -57,13 +71,16 @@ public class CarViewController implements Serializable
         if (optionalCar.isPresent())
         {
             carToUpdate = optionalCar.get();
-            return "update-car.xhtml?faces-redirect=true";
+            setOpenRightMenu(true);
+            return "index.xhtml?faces-redirect=true";
         }
         else
         {
             return "index.xhtml?faces-redirect=true";
         }
+
     }
+
 
     public String saveCar()
     {

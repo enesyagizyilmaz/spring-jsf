@@ -2,12 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .half {
+            flex: 1;
+            padding: 10px;
+        }
+    </style>
 </h:head>
 
 <h:body>
-    <h:form><br/>
+    <h:form>
         <div style="text-align: center; margin-bottom: 20px;">
             <p:commandButton value="Create" id="ajax"
                              action="#{carViewController.gotoCreateCar}"
@@ -15,59 +26,83 @@
                              icon="pi pi-plus"
             />
         </div>
+        <div class="container">
+            <div class="half">
+                <!-- Existing car table -->
+                <div style="margin: 0 auto; width: 100%;">
+                    <p:dataTable id="carTable" var="car" value="#{carViewController.cars}">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
 
-        <div style="margin: 0 auto; width: 80%;">
-            <p:dataTable id="carTable" var="car" value="#{carViewController.cars}">
-                <p:column headerText="Id">
-                    <h:outputText value="#{car.id}" />
-                </p:column>
+                        <p:column headerText="Year">
+                            <h:outputText value="#{car.year}" />
+                        </p:column>
 
-                <p:column headerText="Year">
-                    <h:outputText value="#{car.year}" />
-                </p:column>
+                        <p:column headerText="Brand">
+                            <h:outputText value="#{car.brand}" />
+                        </p:column>
 
-                <p:column headerText="Brand">
-                    <h:outputText value="#{car.brand}" />
-                </p:column>
+                        <p:column headerText="Color">
+                            <h:outputText value="#{car.color}" />
+                        </p:column>
 
-                <p:column headerText="Color">
-                    <h:outputText value="#{car.color}" />
-                </p:column>
-
-                <p:column headerText="Actions" style="text-align: center;">
+                        <p:column headerText="Actions" style="text-align: center;">
+                            <p:commandButton value=""
+                                             action="#{carViewController.gotoUpdateCar(car.id)}"
+                                             update="carTable"
+                                             icon="pi pi-undo"
+                                             class="pi pi-trash"
+                                             styleClass="ui-button-success"
+                                             style="padding:10px 2px;margin-right: 5px"
+                            />
+                            <p:commandButton value=""
+                                             onclick="PF('confirmDelete').show();"
+                                             update="carTable"
+                                             icon="pi pi-trash"
+                                             class="pi pi-trash"
+                                             styleClass="ui-button-danger"
+                                             type="button"
+                                             style="padding:10px 2px;"
+                            />
+                            <p:confirmDialog header="Deletion Confirmation" widgetVar="confirmDelete"
+                                             message="Are you sure you want to delete?" severity="alert"
+                            >
+                                <p:commandButton value="Yes" action="#{carViewController.deleteCar(car.id)}"
+                                                 update="carTable" oncomplete="PF('confirmDelete').hide();"
+                                                 icon="pi pi-check" styleClass="ui-button-success"
+                                />
+                                <p:commandButton value="No" onclick="PF('confirmDelete').hide();"
+                                                 icon="pi pi-times" styleClass="ui-button-danger"
+                                />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+            <div class="half">
+                <!-- Placeholder for any other table -->
+                <div style="margin: 0 auto; width: 100%;">
+                    <div style="text-align: left; margin-bottom: 20px;">
+                        <p:commandButton value="Close"
+                                         rendered="#{carViewController.openRightMenu}"
+                                         action="#{carViewController.gotoMainPage}"
+                                         styleClass="ui-button-danger"
+                                         icon="pi pi-times"
+                        />
+                    </div>
+                    <p:outputPanel id="updateCarPanel" rendered="#{carViewController.openRightMenu}">
+                        <ui:include src="update-car.xhtml"></ui:include>
+                    </p:outputPanel>
                     <p:commandButton value="Update"
-                                     action="#{carViewController.gotoUpdateCar(car.id)}"
-                                     update="carTable"
-                                     icon="pi pi-undo"
-                                     class="pi pi-trash"
+                                     action="#{carViewController.updateCar}"
+                                     rendered="#{carViewController.openRightMenu}"
                                      style="margin-right:20px;"
-                                     styleClass="ui-button-success"
+                                     styleClass="ui-priority-primary"
                     />
-                    <p:commandButton value="Delete"
-                                     onclick="PF('confirmDelete').show();"
-                                     update="carTable"
-                                     icon="pi pi-trash"
-                                     class="pi pi-trash"
-                                     style="margin-right:20px;"
-                                     styleClass="ui-button-danger"
-                                     type="button"
-                    />
-
-                    <p:confirmDialog header="Deletion Confirmation" widgetVar="confirmDelete"
-                                     message="Are you sure you want to delete?" severity="alert"
-                    >
-                        <p:commandButton value="Yes" action="#{carViewController.deleteCar(car.id)}"
-                                         update="carTable" oncomplete="PF('confirmDelete').hide();"
-                                         icon="pi pi-check" styleClass="ui-button-success"
-                        />
-                        <p:commandButton value="No" onclick="PF('confirmDelete').hide();"
-                                         icon="pi pi-times" styleClass="ui-button-danger"
-                        />
-                    </p:confirmDialog>
-                </p:column>
-            </p:dataTable>
+                </div>
+            </div>
         </div>
-
     </h:form>
 </h:body>
 </html>
