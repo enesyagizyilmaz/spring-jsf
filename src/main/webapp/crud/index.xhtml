@@ -20,15 +20,15 @@
 <h:body>
     <h:form>
         <div style="text-align: center; margin-bottom: 20px;">
-            <p:commandButton value="Create" id="ajax"
-                             action="#{carViewController.gotoCreateCar}"
-                             styleClass="ui-priority-primary"
-                             icon="pi pi-plus"
-            />
+
         </div>
         <div class="container">
             <div class="half">
-                <!-- Existing car table -->
+                <p:commandButton
+                                 action="#{carViewController.gotoCreateCar}"
+                                 styleClass="ui-priority-primary"
+                                 icon="pi pi-plus"
+                /><br/><br/>
                 <div style="margin: 0 auto; width: 100%;">
                     <p:dataTable id="carTable" var="car" value="#{carViewController.cars}">
                         <p:column headerText="Id">

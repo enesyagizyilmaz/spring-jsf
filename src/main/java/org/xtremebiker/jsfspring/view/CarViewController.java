@@ -123,7 +123,6 @@ public class CarViewController implements Serializable
 
     public void deleteCar()
     {
-        System.out.println("babannnnn");
         carService.deleteCarById(selectedCarId);
         cars = carService.getAllCars();
     }
