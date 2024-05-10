@@ -9,13 +9,6 @@
 <h:body>
     <h:form>
         <h3>Create Car</h3>
-        <div style="text-align: left; margin-bottom: 20px;">
-            <p:commandButton value="Main Page" id="ajax"
-                             action="#{carViewController.gotoMainPage}"
-                             styleClass="ui-button-secondary"
-                             icon="pi pi-arrow-left"
-            />
-        </div>
         <div class="ui-fluid p-formgrid p-grid">
             <div class="p-field p-col">
                 <p:outputLabel for="brand" value="Brand" />
@@ -30,12 +23,6 @@
                 <p:inputText value="#{carViewController.car.year}" id="year" />
             </div>
             <br/>
-
-            <p:commandButton value="Submit"
-                             action="#{carViewController.saveCar}"
-                             style="margin-right:20px;"
-                             styleClass="ui-priority-primary"
-            />
 
         </div>
     </h:form>
