@@ -57,24 +57,11 @@
                                              style="margin-right: 5px"
                             />
                             <p:commandButton
-                                             onclick="PF('confirmDelete').show();"
                                              update="carTable"
                                              icon="pi pi-trash"
-                                             class="pi pi-trash"
                                              styleClass="ui-button-danger"
-                                             type="button"
+                                             action="#{carViewController.setSelectedCarId(car.id)}"
                             />
-                            <p:confirmDialog header="Deletion Confirmation" widgetVar="confirmDelete"
-                                             message="Are you sure you want to delete?" severity="alert"
-                            >
-                                <p:commandButton value="Yes" action="#{carViewController.deleteCar(car.id)}"
-                                                 update="carTable" oncomplete="PF('confirmDelete').hide();"
-                                                 icon="pi pi-check" styleClass="ui-button-success"
-                                />
-                                <p:commandButton value="No" onclick="PF('confirmDelete').hide();"
-                                                 icon="pi pi-times" styleClass="ui-button-danger"
-                                />
-                            </p:confirmDialog>
                         </p:column>
 
                     </p:dataTable>

@@ -1,17 +1,13 @@
 package org.xtremebiker.jsfspring.view;
 
 import lombok.Data;
-import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.support.RequestContext;
 import org.xtremebiker.jsfspring.model.Car;
-import org.xtremebiker.jsfspring.repository.CarRepository;
 import org.xtremebiker.jsfspring.service.CarService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +24,15 @@ public class CarViewController implements Serializable
     private Long updateCarId;
     private boolean openRightMenuForUpdate;
     private boolean openRightMenuForCreate;
+    private long selectedCarId;
+
+    public void setSelectedCarId(long selectedCarId)
+    {
+        this.selectedCarId = selectedCarId;
+        deleteCar();
+    }
+
+    public long getSelectedCarId() {return selectedCarId;}
 
     @Autowired
     public void setCarService(CarService carService)
@@ -43,11 +48,10 @@ public class CarViewController implements Serializable
         this.openRightMenuForUpdate = openRightMenu;
     }
 
-    public boolean isOpenRightMenuForCreate() {
-        return openRightMenuForCreate;
-    }
+    public boolean isOpenRightMenuForCreate() {return openRightMenuForCreate;}
 
-    public void setOpenRightMenuForCreate(boolean openRightMenuForCreate) {
+    public void setOpenRightMenuForCreate(boolean openRightMenuForCreate)
+    {
         this.openRightMenuForCreate = openRightMenuForCreate;
     }
 
@@ -65,7 +69,6 @@ public class CarViewController implements Serializable
         resetCar();
         setOpenRightMenuForCreate(true);
         return "index.xhtml?faces-redirect=true";
-        //return "create-car.xhtml?faces-redirect=true";
     }
 
     public String gotoMainPage()
@@ -85,13 +88,8 @@ public class CarViewController implements Serializable
         {
             carToUpdate = optionalCar.get();
             setOpenRightMenuForUpdate(true);
-            return "index.xhtml?faces-redirect=true";
         }
-        else
-        {
-            return "index.xhtml?faces-redirect=true";
-        }
-
+        return "index.xhtml?faces-redirect=true";
     }
 
     public String saveCar()
@@ -123,10 +121,10 @@ public class CarViewController implements Serializable
         }
     }
 
-    public void deleteCar(Long carId)
+    public void deleteCar()
     {
-        System.out.println(carId);
-        carService.deleteCarById(carId);
+        System.out.println("babannnnn");
+        carService.deleteCarById(selectedCarId);
         cars = carService.getAllCars();
     }
 
