@@ -84,18 +84,18 @@
                 <div style="margin: 0 auto; width: 100%;">
                     <div style="text-align: left; margin-bottom: 20px;">
                         <p:commandButton
-                                         rendered="#{carViewController.openRightMenu}"
+                                         rendered="#{carViewController.openRightMenuForUpdate}"
                                          action="#{carViewController.gotoMainPage}"
                                          styleClass="ui-button-danger"
                                          icon="pi pi-times"
                         />
                     </div>
-                    <p:outputPanel id="updateCarPanel" rendered="#{carViewController.openRightMenu}">
+                    <p:outputPanel id="updateCarPanel" rendered="#{carViewController.openRightMenuForUpdate}">
                         <ui:include src="update-car.xhtml"></ui:include>
                     </p:outputPanel>
                     <p:commandButton value="Update"
                                      action="#{carViewController.updateCar}"
-                                     rendered="#{carViewController.openRightMenu}"
+                                     rendered="#{carViewController.openRightMenuForUpdate}"
                                      style="margin-right:20px;"
                                      styleClass="ui-priority-primary"
                     />

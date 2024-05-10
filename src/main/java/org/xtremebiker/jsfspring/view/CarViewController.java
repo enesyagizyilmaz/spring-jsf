@@ -26,7 +26,7 @@ public class CarViewController implements Serializable
     private Car car;
     private Car carToUpdate;
     private Long updateCarId;
-    private boolean openRightMenu;
+    private boolean openRightMenuForUpdate;
 
     @Autowired
     public void setCarService(CarService carService)
@@ -34,18 +34,18 @@ public class CarViewController implements Serializable
         this.carService = carService;
     }
 
-    public boolean isOpenRightMenu() {
-        return openRightMenu;
+    public boolean isOpenRightMenuForUpdate() {
+        return openRightMenuForUpdate;
     }
 
-    public void setOpenRightMenu(boolean openRightMenu) {
-        this.openRightMenu = openRightMenu;
+    public void setOpenRightMenuForUpdate(boolean openRightMenu) {
+        this.openRightMenuForUpdate = openRightMenu;
     }
 
     @PostConstruct
     public void init()
     {
-        openRightMenu = false;
+        openRightMenuForUpdate = false;
         cars = carService.getAllCars();
         resetCar();
     }
@@ -58,7 +58,7 @@ public class CarViewController implements Serializable
 
     public String gotoMainPage()
     {
-        setOpenRightMenu(false);
+        setOpenRightMenuForUpdate(false);
         resetCar();
         return "index.xhtml?faces-redirect=true";
     }
@@ -71,7 +71,7 @@ public class CarViewController implements Serializable
         if (optionalCar.isPresent())
         {
             carToUpdate = optionalCar.get();
-            setOpenRightMenu(true);
+            setOpenRightMenuForUpdate(true);
             return "index.xhtml?faces-redirect=true";
         }
         else
