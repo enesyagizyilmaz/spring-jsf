@@ -18,21 +18,23 @@
 </h:head>
 
 <h:body>
-
-    <h1>CRUD Application</h1>
     <h:form>
-        <div style="text-align: center; margin-bottom: 20px;">
-
-        </div>
         <div class="container">
             <div class="half">
-                <p:commandButton
-                                 action="#{carViewController.gotoCreateCar}"
-                                 styleClass="ui-priority-primary"
-                                 icon="pi pi-plus"
-                /><br/><br/>
+
                 <div style="margin: 0 auto; width: 100%;">
                     <p:dataTable id="carTable" var="car" value="#{carViewController.cars}">
+                        <f:facet name="header">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h1>CRUD Application</h1>
+                                <p:commandButton
+                                        action="#{carViewController.gotoCreateCar}"
+                                        styleClass="ui-priority-primary"
+                                        icon="pi pi-plus"
+                                />
+                            </div>
+                        </f:facet>
+
                         <p:column headerText="Id">
                             <h:outputText value="#{car.id}" />
                         </p:column>
@@ -70,7 +72,6 @@
                 </div>
             </div>
             <div class="half">
-                <!-- Placeholder for any other table -->
                 <div style="margin: 0 auto; width: 100%;">
                     <div style="text-align: left; margin-bottom: 20px;">
                         <p:commandButton
