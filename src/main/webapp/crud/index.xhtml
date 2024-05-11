@@ -23,7 +23,7 @@
             <h:form id="searchForm">
                 <p:accordionPanel>
                     <p:tab title="Querying and Filtering">
-                        <h:panelGrid columns="8" cellpadding="10">
+                        <h:panelGrid columns="8" cellpadding="2">
                             <p:outputLabel for="year" value="Year:" style="margin-right: 10px;" />
                             <p:inputText id="year" value="#{carViewController.yearForSearch}"  />
 
@@ -54,7 +54,12 @@
             <div class="half">
 
                 <div style="margin: 0 auto; width: 100%;">
-                    <p:dataTable id="carTable" var="car" value="#{carViewController.cars}">
+                    <p:dataTable id="carTable" var="car" value="#{carViewController.cars}"
+                                 rows="10"
+                                 paginator="true" paginatorPosition="both"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 rowsPerPageTemplate="5,10,{ShowAll|'All'}">
                         <f:facet name="header">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <h1>CRUD Application</h1>
