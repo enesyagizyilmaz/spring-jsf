@@ -25,6 +25,41 @@ public class CarService
         return carRepository.findAll();
     }
 
+    public List<Car> findCarsByYearAndBrandAndColor(int year, String brand, String color)
+    {
+        return carRepository.findByYearAndBrandAndColor(year, brand, color);
+    }
+
+    public List<Car> findCarsByBrandAndColor(String brand, String color)
+    {
+        return carRepository.findByBrandAndColor(brand, color);
+    }
+
+    public List<Car> findCarsByYearAndBrand(int year, String brand)
+    {
+        return carRepository.findByYearAndBrand(year, brand);
+    }
+
+    public List<Car> findCarsByYearAndColor(int year, String color)
+    {
+        return carRepository.findByYearAndColor(year, color);
+    }
+
+    public List<Car> findCarsByYear(int year)
+    {
+        return carRepository.findByYear(year);
+    }
+
+    public List<Car> findCarsByBrand(String brand)
+    {
+        return carRepository.findByBrand(brand);
+    }
+
+    public List<Car> findCarsByColor(String color)
+    {
+        return carRepository.findByColor(color);
+    }
+
     public Optional<Car> getCarById(Long id)
     {
         return carRepository.findById(id);

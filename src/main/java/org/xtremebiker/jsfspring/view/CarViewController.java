@@ -17,7 +17,8 @@ import java.util.Optional;
 @Data
 public class CarViewController implements Serializable
 {
-    private CarService carService;
+    @Autowired
+    CarService carService;
     private List<Car> cars;
     private Car car;
     private Car carToUpdate;
@@ -25,6 +26,9 @@ public class CarViewController implements Serializable
     private boolean openRightMenuForUpdate;
     private boolean openRightMenuForCreate;
     private long selectedCarId;
+    private String yearForSearch;
+    private String brandForSearch;
+    private String colorForSearch;
 
     public void setSelectedCarId(long selectedCarId)
     {
@@ -33,12 +37,6 @@ public class CarViewController implements Serializable
     }
 
     public long getSelectedCarId() {return selectedCarId;}
-
-    @Autowired
-    public void setCarService(CarService carService)
-    {
-        this.carService = carService;
-    }
 
     public boolean isOpenRightMenuForUpdate() {
         return openRightMenuForUpdate;
@@ -64,10 +62,43 @@ public class CarViewController implements Serializable
         resetCar();
     }
 
+    public String search()
+    {
+        int year = 0;
+        if (!yearForSearch.isEmpty())
+        {
+            year = Integer.parseInt(yearForSearch);
+        }
+        boolean yearNotEmpty = !yearForSearch.isEmpty();
+        boolean brandNotEmpty = !brandForSearch.isEmpty();
+        boolean colorNotEmpty = !colorForSearch.isEmpty();
+
+        if (yearNotEmpty && brandNotEmpty && colorNotEmpty) {
+            cars = carService.findCarsByYearAndBrandAndColor(year, brandForSearch, colorForSearch);
+        } else if (yearNotEmpty && brandNotEmpty) {
+            cars = carService.findCarsByYearAndBrand(year, brandForSearch);
+        } else if (yearNotEmpty && colorNotEmpty) {
+            cars = carService.findCarsByYearAndColor(year, colorForSearch);
+        } else if (brandNotEmpty && colorNotEmpty) {
+            cars = carService.findCarsByBrandAndColor(brandForSearch, colorForSearch);
+        } else if (yearNotEmpty) {
+            cars = carService.findCarsByYear(year);
+        } else if (brandNotEmpty) {
+            cars = carService.findCarsByBrand(brandForSearch);
+        } else if (colorNotEmpty) {
+            cars = carService.findCarsByColor(colorForSearch);
+        } else {
+            cars = carService.getAllCars();
+        }
+        return "index.xhtml?faces-redirect=true";
+    }
+
+
     public String gotoCreateCar()
     {
         resetCar();
         setOpenRightMenuForCreate(true);
+        setOpenRightMenuForUpdate(false);
         return "index.xhtml?faces-redirect=true";
     }
 
@@ -88,6 +119,7 @@ public class CarViewController implements Serializable
         {
             carToUpdate = optionalCar.get();
             setOpenRightMenuForUpdate(true);
+            setOpenRightMenuForCreate(false);
         }
         return "index.xhtml?faces-redirect=true";
     }

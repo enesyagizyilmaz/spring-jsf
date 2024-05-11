@@ -18,6 +18,37 @@
 </h:head>
 
 <h:body>
+    <div class="container">
+        <div class="half">
+            <h:form id="searchForm">
+                <p:accordionPanel>
+                    <p:tab title="Querying and Filtering">
+                        <h:panelGrid columns="8" cellpadding="10">
+                            <p:outputLabel for="year" value="Year:" style="margin-right: 10px;" />
+                            <p:inputText id="year" value="#{carViewController.yearForSearch}"  />
+
+                            <p:outputLabel for="brand" value="Brand:" style="margin-right: 10px;" />
+                            <p:inputText id="brand" value="#{carViewController.brandForSearch}"  />
+
+                            <p:outputLabel for="color" value="Color:" style="margin-right: 10px;" />
+                            <p:inputText id="color" value="#{carViewController.colorForSearch}" />
+
+                            <p:commandButton value="Search"
+                                             style="margin-right:20px;"
+                                             styleClass="ui-priority-primary"
+                                             action="#{carViewController.search}"
+                            />
+
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+            </h:form>
+        </div>
+        <div class="half">
+
+        </div>
+    </div>
+
     <h:form>
         <div class="container">
             <div class="half">
