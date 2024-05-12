@@ -23,7 +23,7 @@
             <h:form id="searchForm">
                 <p:accordionPanel>
                     <p:tab title="Querying and Filtering">
-                        <h:panelGrid columns="8" cellpadding="2">
+                        <h:panelGrid columns="8">
                             <p:outputLabel for="year" value="Year:" style="margin-right: 10px;" />
                             <p:inputText id="year" value="#{carViewController.yearForSearch}"  />
 
@@ -37,6 +37,7 @@
                                              style="margin-right:20px;"
                                              styleClass="ui-priority-primary"
                                              action="#{carViewController.search}"
+                                             icon="pi pi-search"
                             />
 
                         </h:panelGrid>
